@@ -1,0 +1,88 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+}
+
+/* Glowing Text */
+.glowing-text {
+  text-align: center;
+  font-size: 3rem;
+  color: #ffcc00;
+  text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00, 0 0 30px #ffcc00, 0 0 40px #ffcc00;
+}
+
+/* Layout Containers */
+.login-container, .start-container, .questions-container, .complete-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Form Inputs & Buttons */
+input, button, .start-button, .restart-button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
+
+/* Buttons */
+button, .start-button, .restart-button {
+  background-color: #ffcc00;
+  color: black;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover, .start-button:hover, .restart-button:hover {
+  background-color: #ffaa00;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #b5b5b5;
+}
+
+/* Error Message */
+.error {
+  color: red;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Form Items */
+ul {
+  list-style-type: none;
+}
+
+ul li {
+  margin: 10px 0;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .glowing-text {
+      font-size: 2.5rem;
+  }
+  .login-container, .start-container, .questions-container, .complete-container {
+      padding: 15px;
+  }
+}

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete - Nam Gam Pala</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Glowing Text */
+        .glowing-text {
+            font-size: 56px;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff007f, 0 0 20px #ff007f;
+            }
+            100% {
+                text-shadow: 0 0 10px #fff, 0 0 20px #ff007f, 0 0 30px #ff007f, 0 0 40px #ff007f;
+            }
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .complete-container {
+            text-align: center;
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2, h3 {
+            font-size: 24px;
+            margin-top: 10px;
+            color: #ff007f;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        li {
+            font-size: 18px;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .restart-button {
+            display: inline-block;
+            padding: 12px 20px;
+            background-color: #ff007f;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .restart-button:hover {
+            background-color: #d6006e;
+            transform: scale(1.05);
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        footer a {
+            color: #ff007f;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="complete-container">
+        <h1 class="glowing-text">Nam Gam Pala</h1>
+        <h2>Quiz Complete</h2>
+        <h3>Your answers:</h3>
+        <ul>
+            {% for question, answer in answers.items() %}
+                <li><strong>{{ question }}:</strong> {{ answer }}</li>
+            {% endfor %}
+        </ul>
+        <h3>Unanswered questions:</h3>
+        <ul>
+            {% for question in unanswered_questions.keys() %}
+                <li><strong>{{ question }}:</strong> Not answered</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('restart') }}" class="restart-button">Restart</a>
+        <footer class="footer">Powered by <a href="https://www.dinuth.com" target="_blank">Dinuth Fernando</a></footer>
+    </div>
+</body>
+</html>

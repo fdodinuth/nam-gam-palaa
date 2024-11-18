@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ game_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Glowing Text */
+        .glowing-text {
+            font-size: 48px;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            animation: glow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff007f, 0 0 20px #ff007f;
+            }
+            100% {
+                text-shadow: 0 0 10px #fff, 0 0 20px #ff007f, 0 0 30px #ff007f, 0 0 40px #ff007f;
+            }
+        }
+
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .question-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .question {
+            margin-bottom: 15px;
+        }
+
+        .question label {
+            display: block;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .question input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #333;
+            border: 1px solid #444;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        .question input:focus {
+            border-color: #ff007f;
+            outline: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #ff007f;
+            color: #fff;
+            border: none;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d6006e;
+        }
+
+        #timer {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #bbb;
+        }
+
+        footer a {
+            color: #ff007f;
+            text-decoration: none;
+        }
+    </style>
+    <script>
+        let remainingTime = {{ remaining_time|default(120) }}; // Time limit (default 120 seconds)
+        let submitForm = false; // Flag to control form submission
+
+        function startTimer() {
+            let timerDisplay = document.getElementById('timer'); // Get the timer element
+            const interval = setInterval(() => {
+                if (remainingTime <= 0) {
+                    clearInterval(interval); // Stop the timer when time is up
+                    disableForm(); // Disable form inputs when time is up
+                    submitAnswers(); // Automatically submit the form when time is up
+                } else {
+                    timerDisplay.textContent = `Time Remaining: ${remainingTime--} seconds`; // Update the timer
+                }
+            }, 1000);
+        }
+
+        function disableForm() {
+            // Disable all form elements (input fields, buttons, etc.)
+            let formElements = document.getElementById('question-form').elements;
+            for (let i = 0; i < formElements.length; i++) {
+                formElements[i].disabled = true;
+            }
+        }
+
+        function submitAnswers() {
+            // Trigger form submission automatically
+            if (!submitForm) {
+                submitForm = true;  // Set the flag to true to prevent multiple submissions
+                document.getElementById('question-form').submit();  // Submit the form
+            }
+        }
+
+        window.onload = startTimer; // Start the timer when the page loads
+    </script>
+</head>
+<body>
+    <div class="question-container">
+        <h1 class="glowing-text">{{ game_name }}</h1>
+        <p id="timer">Time Remaining: {{ remaining_time }} seconds</p>
+        <!-- Changed action to /questions -->
+        <form id="question-form" method="POST" action="{{ url_for('questions') }}">
+            <div class="question">
+                <label for="nam">Nam:</label>
+                <input type="text" id="nam" name="nam">
+            </div>
+            <div class="question">
+                <label for="gam">Gam:</label>
+                <input type="text" id="gam" name="gam">
+            </div>
+            <div class="question">
+                <label for="pala">Pala:</label>
+                <input type="text" id="pala" name="pala">
+            </div>
+            <div class="question">
+                <label for="ela">Ela:</label>
+                <input type="text" id="ela" name="ela">
+            </div>
+            <div class="question">
+                <label for="sathu">Sathu:</label>
+                <input type="text" id="sathu" name="sathu">
+            </div>
+            <div class="question">
+                <label for="mal">Mal:</label>
+                <input type="text" id="mal" name="mal">
+            </div>
+            <div class="question">
+                <label for="sindu">Sindu:</label>
+                <input type="text" id="sindu" name="sindu">
+            </div>
+            <div class="question">
+                <label for="ratawal">Ratawal:</label>
+                <input type="text" id="ratawal" name="ratawal">
+            </div>
+            <button type="submit" id="submit-btn">Submit</button>
+        </form>
+    </div>
+    <footer>
+        <p>Powered by <a href="https://www.dinuth.com" target="_blank">Dinuth Fernando</a></p>
+    </footer>
+</body>
+</html>
